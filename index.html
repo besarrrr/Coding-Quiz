@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header>
+        <div>
+
+            <button class="btnHeader" id="high-scores">View High Scores</button>
+
+        </div>
+        
+        <div>
+            <p>Time:<span id="counter-time">xxx</span></p>
+        </div>
+        
+    </header>
+
+    <div class="container">
+        <div id="question-container" class="hide">
+            <div id="question">Question</div>
+            <div id="answer-buttons" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+        <div class="control" id="start-quiz">
+             <h2>Coding Quiz Challenge </h2>
+        <p>This will be a timed quiz<br> Timer starts when "Start Quiz" is clicked<br>You will lose time for every wrong answer<br> Good luck!</p>
+        <button class="start-btn" id="start-quiz">Start Quiz</button>
+        </div>
+    </div>
+
+    <script src="./assets/js/script.js"></script>
+</body>
+</html>
