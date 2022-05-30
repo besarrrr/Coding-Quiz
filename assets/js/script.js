@@ -7,6 +7,8 @@ var timerEl = document.getElementById('counter-time')
 var submitScore = document.getElementById('submit-scores')
 var initialsInput = document.querySelector('#initials')
 var finalScoreEl = document.getElementById("final-score");
+var feedbackEl = document.querySelector("#feedback");
+
 
 let  randomizeQuestions, questionIndex
 
@@ -26,10 +28,9 @@ submitScore.addEventListener('click', function(event){
     var user = {
         initials: initialsInput.value.trim()
     }
-   
     localStorage.setItem("userdata", JSON.stringify(user))
 })
-
+ 
 function countdown(){
     var timeLeft = 60;
   var timeInterval = setInterval(function () {
@@ -81,22 +82,58 @@ function questionOrder(){
 }
 
 function resetState(){
- while (answerButtonsElement.firstChild){
-     answerButtonsElement.removeChild
-     (answerButtonsElement.firstChild)
+  while (answerButtonsElement.firstChild){
+      answerButtonsElement.removeChild
+      (answerButtonsElement.firstChild)
+  }
  }
-}
 
 function selectAnswer(e){ 
+   // check if user guessed wrong
+   if (this.value !== questions[questionIndex].correct) {
+    // penalize time
+    timeLeft = -10;
 
+    if (timeLeft < 0) {
+      timeLeft = 0;
+    }
+    // display new time on page
+    timerEl.textContent = timeLeft;
+    feedbackEl.textContent = "Wrong!";
+    feedbackEl.style.color = "red";
+    feedbackEl.style.fontSize = "400%";
+  } else {
+    feedbackEl.textContent = "Correct!";
+    feedbackEl.style.color = "green";
+    feedbackEl.style.fontSize = "400%";
+  }
+
+  // flash right/wrong feedback
+  feedbackEl.setAttribute("class", "feedback");
+  setTimeout(function() {
+    feedbackEl.setAttribute("class", "feedback hide");
+  }, 1000);
   console.log("click")
+}
+
+function setStatusClass (element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('correct')
+  } else {
+    element.classList.add('wrong')
+  }
+}
+
+function clearStatusClass(element){
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
 }
 
 function endQuiz() {
     endQuizContainer.classList.remove('hide')
     questionContainerElement.classList.add('hide')
     finalScoreEl.textContent = timerEl.textContent;
-
  }
 
  const questions = [
