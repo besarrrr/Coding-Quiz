@@ -2,11 +2,52 @@ const startQuizBtn = document.getElementById('start-quiz');
 var questionContainerElement = document.getElementById('question-container')
 const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
+const endQuizContainer = document.getElementById('end-screen')
+var timerEl = document.getElementById('counter-time')
+var submitScore = document.getElementById('submit-scores')
+var initialsInput = document.querySelector('#initials')
+var finalScoreEl = document.getElementById("final-score");
 
 let  randomizeQuestions, questionIndex
 
 startQuizBtn.addEventListener("click", startQuiz) 
-answerButtonsElement.addEventListener('click', showQuestion)
+
+answerButtonsElement.addEventListener('click', () => {
+   questionIndex++
+  if (questionIndex === questions.length){
+    endQuiz()
+  }else {
+    questionOrder()
+  }
+})
+
+submitScore.addEventListener('click', function(event){
+    event.preventDefault();
+    var user = {
+        initials: initialsInput.value.trim()
+    }
+   
+    localStorage.setItem("userdata", JSON.stringify(user))
+})
+
+function countdown(){
+    var timeLeft = 60;
+  var timeInterval = setInterval(function () {
+    if (timeLeft > 1) {
+      timerEl.textContent = timeLeft;
+      timeLeft--;
+    } 
+    else if (timeLeft === 1) {
+      timerEl.textContent = timeLeft;
+      timeLeft--;
+    } 
+    else {
+      timerEl.textContent = "00";
+      clearInterval(timeInterval);
+    }
+  }, 1000);
+
+}
 
 function startQuiz(){
     console.log("start")
@@ -16,6 +57,7 @@ function startQuiz(){
     questionIndex = 0
     questionContainerElement.classList.remove('hide')
     questionOrder()
+    countdown()
 }
 
 function showQuestion(question){
@@ -34,7 +76,8 @@ function showQuestion(question){
 
 function questionOrder(){
     resetState()
-    showQuestion(randomizeQuestions[questionIndex])
+    showQuestion(randomizeQuestions[questionIndex]) 
+   
 }
 
 function resetState(){
@@ -46,11 +89,15 @@ function resetState(){
 
 function selectAnswer(e){ 
 
-       console.log("click")
+  console.log("click")
 }
 
+function endQuiz() {
+    endQuizContainer.classList.remove('hide')
+    questionContainerElement.classList.add('hide')
+    finalScoreEl.textContent = timerEl.textContent;
 
-
+ }
 
  const questions = [
      {
