@@ -24,7 +24,7 @@ answerButtonsElement.addEventListener('click', () => {
   }
 })
 
-highScoresbutton.addEventListener('click',  highScores )
+highScoresbutton.addEventListener('click', loadTasks) 
 
 submitScore.addEventListener('click', function(event){
     event.preventDefault();
@@ -33,6 +33,26 @@ submitScore.addEventListener('click', function(event){
     }
     localStorage.setItem("userdata", JSON.stringify(user))
 })
+
+var loadTasks = function() {
+  var savedTasks = localStorage.getItem("userdata");
+  
+  if (!savedTasks) {
+    return false;
+  }
+  console.log("Saved tasks found!");
+  
+  savedTasks = JSON.parse(savedTasks);
+
+  for (var i = 0; i < savedTasks.length; i++) {
+  
+    createTaskEl(savedTasks[i]);
+  }
+
+    endQuizContainer.classList.add('hide')
+    questionContainerElement.classList.add('hide')
+};
+
 
 function countdown(){
     var timeLeft = 60;
@@ -179,4 +199,4 @@ function endQuiz() {
                 },
  ]
 
- 
+ loadTasks();
