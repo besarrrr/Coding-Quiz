@@ -8,9 +8,10 @@ var submitScore = document.getElementById('submit-scores')
 var initialsInput = document.querySelector('#initials')
 var finalScoreEl = document.getElementById("final-score");
 var feedbackEl = document.querySelector("#feedback");
+var highScores = JSON.parse(localStorage.getItem("userdata"))
+var highScoresbutton = document.getElementById('high-scores')
 
-
-let  randomizeQuestions, questionIndex
+let  randomizeQuestions, questionIndexhigh
 
 startQuizBtn.addEventListener("click", startQuiz) 
 
@@ -23,6 +24,8 @@ answerButtonsElement.addEventListener('click', () => {
   }
 })
 
+highScoresbutton.addEventListener('click',  highScores )
+
 submitScore.addEventListener('click', function(event){
     event.preventDefault();
     var user = {
@@ -30,7 +33,7 @@ submitScore.addEventListener('click', function(event){
     }
     localStorage.setItem("userdata", JSON.stringify(user))
 })
- 
+
 function countdown(){
     var timeLeft = 60;
   var timeInterval = setInterval(function () {
@@ -89,16 +92,16 @@ function resetState(){
  }
 
 function selectAnswer(e){ 
-   // check if user guessed wrong
-   if (this.value !== questions[questionIndex].correct) {
-    // penalize time
+
+  if (this.value !== questions[questionIndex].answers) {
+    
     timeLeft = -10;
 
     if (timeLeft < 0) {
       timeLeft = 0;
     }
-    // display new time on page
-    timerEl.textContent = timeLeft;
+    
+    
     feedbackEl.textContent = "Wrong!";
     feedbackEl.style.color = "red";
     feedbackEl.style.fontSize = "400%";
@@ -108,7 +111,6 @@ function selectAnswer(e){
     feedbackEl.style.fontSize = "400%";
   }
 
-  // flash right/wrong feedback
   feedbackEl.setAttribute("class", "feedback");
   setTimeout(function() {
     feedbackEl.setAttribute("class", "feedback hide");
@@ -134,7 +136,9 @@ function endQuiz() {
     endQuizContainer.classList.remove('hide')
     questionContainerElement.classList.add('hide')
     finalScoreEl.textContent = timerEl.textContent;
+
  }
+
 
  const questions = [
      {
@@ -174,3 +178,5 @@ function endQuiz() {
                 ]
                 },
  ]
+
+ 
