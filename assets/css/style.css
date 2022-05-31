@@ -1,4 +1,6 @@
-
+* {
+    background-color: aquamarine;
+}
 header {
     width: 100%;
     position: relative;
@@ -22,9 +24,10 @@ header {
       margin:0;
       display: flex;
       width: 100vw;
-      height: 50vh;
+      height: 75vh;
       justify-content:center;
       align-items: center;
+
   }
 
   #question-container {

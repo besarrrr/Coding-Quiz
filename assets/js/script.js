@@ -107,7 +107,7 @@ function selectAnswer(e){
     feedbackEl.style.fontSize = "400%";
   } else {
     feedbackEl.textContent = "Correct!";
-    feedbackEl.style.color = "green";
+    feedbackEl.style.color = "blue";
     feedbackEl.style.fontSize = "400%";
   }
 
